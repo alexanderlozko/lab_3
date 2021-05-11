@@ -1,8 +1,10 @@
 from flask import Flask, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+import psycopg2
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://yutqtwawqkjdnc:671881f90b94cf097728248eb4af95fcbabcf0b10e65bba4cd16c800e9600106@ec2-54-163-254-204.compute-1.amazonaws.com:5432/d5ecfb0jn6uicb'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:my_password@localhost:54320/lab3'
 db = SQLAlchemy(app)
 
 class Brand(db.Model):
@@ -85,15 +87,15 @@ def delete_product(id):
 
 @app.route('/delete_brand/<name>')
 def delete_brand(name):
-    dl = db.session.query(Brand).get(name)
-    db.session.delete(dl)
-    db.session.commit()
-
     dl_list = Product.query.filter_by(brand=name).all()
     for dl1 in dl_list:
         db.session.query(Product).get(dl1.id)
         db.session.delete(dl1)
         db.session.commit()
+
+    dl = db.session.query(Brand).get(name)
+    db.session.delete(dl)
+    db.session.commit()
     return redirect('/index')
 
 if __name__ == "__main__":
