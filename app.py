@@ -23,7 +23,8 @@ db.create_all()
 db.session.commit()
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+@app.route('/index', methods=['GET', 'POST'])
 def index():
     message = ''
 
@@ -70,7 +71,7 @@ def delete_product(id):
     dl = db.session.query(Product).get(id)
     db.session.delete(dl)
     db.session.commit()
-    return redirect('/')
+    return redirect('/index')
 
 @app.route('/delete_brand/<name>')
 def delete_brand(name):
@@ -83,7 +84,7 @@ def delete_brand(name):
     dl = db.session.query(Brand).get(name)
     db.session.delete(dl)
     db.session.commit()
-    return redirect('/')
+    return redirect('/index')
 
 
 if __name__=="__main__":
