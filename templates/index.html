@@ -42,7 +42,7 @@
                             <input type="text" name="year_brand" class="form-control" placeholder="enter year of creation">
                         </p>
                         <p>
-                            <button type="submit" class="btn btn-primary">submit</button>
+                            <input type="submit" class="btn btn-primary" value="submit">
                         </p>
                         </div>
                     </form>
@@ -65,21 +65,23 @@
                 <div class="card-body">
                     <h1>add product</h1>
                     <form action="{{ url_for('index') }}" method="post">
+                        <div class="form-group">
                         <p>
                             <label>product</label>
-                            <input type="text" name="name_product">
+                            <input type="text" name="name_product" class="form-control" placeholder="enter product name">
                         </p>
                         <p>
                             <label>price</label>
-                            <input type="text" name="price_product">
+                            <input type="text" name="price_product" class="form-control" placeholder="enter price">
                         </p>
                         <p>
                             <label>brand</label>
-                            <input type="text" name="brand_product">
+                            <input type="text" name="brand_product" class="form-control" placeholder="enter brand name">
                         </p>
                         <p>
-                            <input type="submit">
+                            <input type="submit" class="btn btn-primary" value="submit">
                         </p>
+                        </div>
                     </form>
                 </div>
             </div>
