@@ -23,8 +23,7 @@ db.create_all()
 db.session.commit()
 
 
-@app.route('/')
-@app.route('/index', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     message = ''
 
@@ -34,20 +33,15 @@ def index():
     if request.method == 'POST':
         brand = request.form.get('name_brand')
         year = request.form.get('year_brand')
-        #проверки на год нет
+
         if brand and year != '':
-            add = Brand(name=brand, year=year)
-            db.session.add(add)
-            db.session.commit()
-            #message = 'brand was added'
-            return redirect('index')
-
-
-        # try:
-        #     db.session.add(add)
-        #     db.session.commit()
-        # except Exception:
-        #     message = 'Error'
+            try:
+                add = Brand(name=brand, year=year)
+                db.session.add(add)
+                db.session.commit()
+                return redirect('index')
+            except:
+                message = 'brand already exists!'
 
 
         product = request.form.get('name_product')
@@ -55,12 +49,6 @@ def index():
         brand_prod = request.form.get('brand_product')
 
         add = Product(name=product, price=price, brand=brand_prod)
-
-        # try:
-        #     db.session.add(add)
-        #     db.session.commit()
-        # except Exception:
-        #     message = 'Error'
 
         list_br = []
         all = Brand.query.all()
@@ -71,9 +59,8 @@ def index():
             if str(brand_prod) in list_br:
                 db.session.add(add)
                 db.session.commit()
-                #message = 'product was added'
                 return redirect('index')
-            message = 'brand not exist! create brand!'
+            message = 'brand does not exist! create brand!'
 
     return render_template('index.html', message=message, brand_posts=brand_posts, product_posts=product_posts)
 
@@ -83,7 +70,7 @@ def delete_product(id):
     dl = db.session.query(Product).get(id)
     db.session.delete(dl)
     db.session.commit()
-    return redirect('/index')
+    return redirect('/')
 
 @app.route('/delete_brand/<name>')
 def delete_brand(name):
@@ -96,7 +83,7 @@ def delete_brand(name):
     dl = db.session.query(Brand).get(name)
     db.session.delete(dl)
     db.session.commit()
-    return redirect('/index')
+    return redirect('/')
 
 
 if __name__=="__main__":
