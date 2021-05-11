@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import psycopg2
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://yutqtwawqkjdnc:671881f90b94cf097728248eb4af95fcbabcf0b10e65bba4cd16c800e9600106@ec2-54-163-254-204.compute-1.amazonaws.com:5432/d5ecfb0jn6uicb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://yutqtwawqkjdnc:671881f90b94cf097728248eb4af95fcbabcf0b10e65bba4cd16c800e9600106@ec2-54-163-254-204.compute-1.amazonaws.com:5432/d5ecfb0jn6uicb'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:my_password@localhost:54320/lab3'
 db = SQLAlchemy(app)
 
@@ -100,4 +100,4 @@ def delete_brand(name):
 
 
 if __name__=="__main__":
-    app.run()
+    app.run(debug=True)
