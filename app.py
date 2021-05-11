@@ -98,5 +98,3 @@ def delete_brand(name):
     db.session.commit()
     return redirect('/index')
 
-if __name__ == "__main__":
-    app.run()
